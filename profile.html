@@ -1,24 +1,36 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="cstyle.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        
-        <title>Registration</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Profile Management</title>
+</head>
+<body>
+    <h1>Client Profile Management</h1>
+    <form action="#" method="post">
+        <label for="fullname">Full Name:</label><br>
+        <input type="text" id="fullname" name="fullname" maxlength="50" required><br><br>
 
-    <body>
-        <form name = "login_form" method="post" action="">
-        <div class = "center">
-            <h1>Register</h1>
-            <label for = 'username'>Username</label>
-            <input type="text" name="username">
-            <br></br>
-            <label for = 'password'>Password</label>
-            <input type="password" name="password">
-            <br>
-            <input type="submit" class="btn btn-primary" name="reg" value="Register">
-            </br>
-        </div>
-        </form>
-    </body>
+        <label for="address1">Address 1:</label><br>
+        <input type="text" id="address1" name="address1" maxlength="100" required><br><br>
+
+        <label for="address2">Address 2:</label><br>
+        <input type="text" id="address2" name="address2" maxlength="100"><br><br>
+
+        <label for="city">City:</label><br>
+        <input type="text" id="city" name="city" maxlength="100" required><br><br>
+
+        <label for="state">State:</label><br>
+        <select id="state" name="state" required>
+            <option value="" disabled selected>Select State</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+        </select><br><br>
+
+        <label for="zipcode">Zipcode:</label><br>
+        <input type="text" id="zipcode" name="zipcode" maxlength="9" pattern="[0-9]{5,}" title="Zipcode must be at least 5 digits" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
 </html>
