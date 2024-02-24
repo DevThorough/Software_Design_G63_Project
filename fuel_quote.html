@@ -24,5 +24,25 @@
 
         <input type="submit" value="Submit">
     </form>
+    <script>
+        function validateForm() {
+            var gallonsRequested = document.getElementById("gallons_requested").value;
+            var deliveryDate = document.getElementById("delivery_date").value;
+
+            // Check if Gallons Requested is a valid number
+            if (isNaN(gallonsRequested) || gallonsRequested <= 0) {
+                alert("Gallons Requested must be a valid number greater than 0");
+                return false;
+            }
+
+            // Check if Delivery Date is provided
+            if (!deliveryDate) {
+                alert("Please select a Delivery Date");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </body>
 </html>
