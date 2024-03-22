@@ -1,13 +1,13 @@
 <html>
     <head>
-        <link rel="stylesheet" href="cstyle.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='cstyle.css') }}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         
         <title>Registration</title>
     </head>
 
     <body>
-        <form name = "login_form" method="post" action="profile.html">
+        <form name = "login_form" method="POST">
         <div class = "center">
             <h1>Register</h1>
             <label for = 'username'>Username</label>
