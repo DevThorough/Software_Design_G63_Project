@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Profile
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -52,3 +52,24 @@ def sign_up():
             flash("Account created successfully!", category="success")
             return redirect(url_for('views.home'))
     return render_template("registration.html", user=current_user)
+
+@auth.route('/profile', methods=['GET', 'POST'])
+@login_required
+def editProfile():
+    if request.method == 'POST':
+        fullName = request.form.get('fullname')
+        address1 = request.form.get('address1')
+        address2 = request.form.get('address2')
+        city = request.form.get('city')
+        state = request.form.get('state')
+        zipCode = request.form.get('zipcode')
+
+        profile = Profile.query.filter_by(user_id=current_user.id).first()
+        if profile:
+            #updATE
+        else:
+            #create
+    elif request.method == 'GET':
+        profile = Profile.query.filter_by(user_id=current_user.id).first()
+        ##display profile
+        return render_template("profile.html")
