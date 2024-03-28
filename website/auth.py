@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from .models import User, Profile
+from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ##means from __init__.py import db
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
@@ -21,7 +21,7 @@ def login():
                 login_user(user, remember=True)
                 session['userID'] = user.id
                 session['loggedIn'] = True
-                return redirect(url_for('.profile', userID = user.id))
+                return redirect('/profile')
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -33,7 +33,7 @@ def logout():
     logout_user()
     session.pop('loggedIn', None)
     session.pop('userID', None)
-    return redirect(url_for('.login'))
+    return redirect('/login')
 
 @auth.route('/register', methods=['GET', 'POST'])
 def sign_up():
@@ -57,48 +57,4 @@ def sign_up():
             flash("Account created successfully!", category="success")
             return redirect(url_for('views.home'))
     else:
-        redirect('/register')
-
-@auth.route('/profile', methods=['GET', 'POST'])
-@login_required
-def profile():
-    if session['userID']:
-        userID = session['userID']
-    if request.method == 'POST':
-        fullName = request.form.get('fullname')
-        address1 = request.form.get('address1')
-        address2 = request.form.get('address2')
-        city = request.form.get('city')
-        state = request.form.get('state')
-        zipCode = request.form.get('zipcode')
-
-        profile = Profile.query.filter_by(user_id=userID).first()
-        if profile:
-            #update profile
-            profile.fullName=fullName
-            profile.address1=address1
-            profile.address2=address2
-            profile.city=city
-            profile.state=state
-            profile.zipCode=zipCode
-            db.session.commit()
-            flash("Profile edited successfully!", category="success")
-            return redirect('/profile')
-        else:
-            #add profile to our database
-            new_profile = Profile(fullName=fullName,address1=address1,address2=address2,
-                                  city=city,state=state,zipCode=zipCode, user_id=userID)
-            db.session.add(new_profile)
-            db.session.commit()
-            flash("Profile created successfully!", category="success")
-            return redirect('/profile')
-    elif request.method == 'GET':
-        profile = Profile.query.filter_by(user_id=userID).first()
-        ##display profile if exist
-        if profile:
-            return render_template("profile.html", onRecord = True,
-                                   fullName = profile.fullName,address1 = profile.address1,
-                                   address2 = profile.address2,city = profile.city,
-                                   state = profile.state,zipCode = profile.zipCode)
-        else:
-            return render_template("profile.html", onRecord=False)
+        return render_template("registration.html")

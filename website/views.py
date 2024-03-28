@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from .models import User, Profile
+from . import db   ##means from __init__.py import db
+from flask_login import login_required, current_user
 
 
 views = Blueprint('views', __name__)
@@ -6,7 +9,3 @@ views = Blueprint('views', __name__)
 @views.route('/')
 def home():
     return render_template("login.html")
-
-@views.route('/register')
-def register():
-    return render_template("registration.html")
