@@ -1,10 +1,6 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuel Quote Form</title>
-</head>
-<body>
+{% extends 'index.html' %}
+{% block title %}Fuel Quote Form{% endblock %}
+{% block content %}
     <h1>Fuel Quote</h1>
     <form name="fuel_quote_history_form" method="post" action="fuel_quote_history.html">
         <label for="gallons_requested">Gallons Requested:</label><br>
@@ -44,5 +40,4 @@
             return true;
         }
     </script>
-</body>
-</html>
+{% endblock %}

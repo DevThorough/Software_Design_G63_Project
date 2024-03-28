@@ -1,12 +1,7 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='cstyle.css') }}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Fuel Quote History</title>
-</head>
-<body>
+{% extends 'index.html' %}
+{% block title %}Fuel Quote History{% endblock %}
+
+{% block content %}
     <h1>Fuel Quote History</h1>
     <table>
         <thead>
@@ -28,5 +23,4 @@
             </tr>
         </tbody>
     </table>
-</body>
-</html>
+{% endblock %}
