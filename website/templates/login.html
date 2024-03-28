@@ -1,13 +1,7 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='cstyle.css') }}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        
-        <title>User Login</title>
-    </head>
-
-    <body>
-        <form name = "login_form" method="POST">
+{% extends 'index.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <form name = "login_form" method="POST">
         <div class = "center">
             <h1>Welcome</h1>
             <label for = 'username'>Username</label>
@@ -20,6 +14,5 @@
             <input type="submit" class="btn btn-success" name="log_in" value="Log In">
             </br>
         </div>
-        </form>
-    </body>
-</html>
+    </form>
+{% endblock %}

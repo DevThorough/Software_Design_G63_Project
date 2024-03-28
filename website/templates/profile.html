@@ -1,10 +1,6 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Profile Management</title>
-</head>
-<body>
+{% extends 'index.html' %}
+{% block title %}Client Profile Management{% endblock %}
+{% block content %}
     <h1>Client Profile Management</h1>
     <form action="#" method="post">
         <label for="fullname">Full Name:</label><br>
@@ -32,5 +28,4 @@
 
         <input type="submit" value="Submit">
     </form>
-</body>
-</html>
+{% endblock %}
