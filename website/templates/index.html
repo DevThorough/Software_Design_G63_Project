@@ -9,7 +9,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='cstyle.css') }}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     </head>
-    <body>  
+    <body> 
+        <a href="/logout" style="position: fixed; right: 0;">Logout</a>
         {% with messages = get_flashed_messages(with_categories=true) %} 
             {% if messages %} 
                 <ul class=flashes>
