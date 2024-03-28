@@ -15,10 +15,12 @@ def create_app():
     from .views import views
     from .auth import auth
     from .profile import profile
+    from .fuel_quote import fuelquote
     
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(profile, url_prefix='/')
+    app.register_blueprint(fuelquote, url_prefix='/')
 
     from .models import User
 
