@@ -48,7 +48,7 @@ class Profile(db.Model):
     address2: Mapped[Optional[str]] = mapped_column(String(100))
     city: Mapped[str] = mapped_column(String(100))
     state: Mapped[str] = mapped_column(String(2))
-    zipcode: Mapped[str] = mapped_column(String(9))
+    zipCode: Mapped[str] = mapped_column(String(9))
     user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
     user: Mapped["User"] = relationship(back_populates="profile")
 

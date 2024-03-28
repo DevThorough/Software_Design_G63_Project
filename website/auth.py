@@ -19,7 +19,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
-                return redirect('/profile')
+                return redirect(url_for('.profile', userID = user.id))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -51,11 +51,13 @@ def sign_up():
             login_user(new_user, remember=True)
             flash("Account created successfully!", category="success")
             return redirect(url_for('views.home'))
-    return render_template("registration.html", user=current_user)
+    else:
+        redirect('/register')
 
 @auth.route('/profile', methods=['GET', 'POST'])
 @login_required
-def editProfile():
+def profile():
+    userID = request.args['userID']
     if request.method == 'POST':
         fullName = request.form.get('fullname')
         address1 = request.form.get('address1')
@@ -64,12 +66,33 @@ def editProfile():
         state = request.form.get('state')
         zipCode = request.form.get('zipcode')
 
-        profile = Profile.query.filter_by(user_id=current_user.id).first()
+        profile = Profile.query.filter_by(user_id=userID).first()
         if profile:
-            #updATE
+            #update profile
+            profile.fullName=fullName
+            profile.address1=address1
+            profile.address2=address2
+            profile.city=city
+            profile.state=state
+            profile.zipCode=zipCode
+            db.session.commit()
+            flash("Profile edited successfully!", category="success")
+            return redirect(url_for('.profile', userID = userID))
         else:
-            #create
+            #add profile to our database
+            new_profile = Profile(fullName=fullName,address1=address1,address2=address2,
+                                  city=city,state=state,zipCode=zipCode, user_id=userID)
+            db.session.add(new_profile)
+            db.session.commit()
+            flash("Profile created successfully!", category="success")
+            return redirect(url_for('.profile', userID = userID))
     elif request.method == 'GET':
-        profile = Profile.query.filter_by(user_id=current_user.id).first()
-        ##display profile
-        return render_template("profile.html")
+        profile = Profile.query.filter_by(user_id=userID).first()
+        ##display profile if exist
+        if profile:
+            return render_template("profile.html",userID=userID,onRecord = True,
+                                   fullName = profile.fullName,address1 = profile.address1,
+                                   address2 = profile.address2,city = profile.city,
+                                   state = profile.state,zipCode = profile.zipCode)
+        else:
+            return render_template("profile.html", userID = userID, onRecord=False)
