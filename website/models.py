@@ -40,6 +40,8 @@ class Child(Base):
 
 
 class Profile(db.Model):
+    __tablename__ = "profile_table"
+
     id: Mapped[int] = mapped_column(primary_key=True)
     fullName: Mapped[str] = mapped_column(String(50))
     address1: Mapped[str] = mapped_column(String(100))
@@ -47,11 +49,13 @@ class Profile(db.Model):
     city: Mapped[str] = mapped_column(String(100))
     state: Mapped[str] = mapped_column(String(2))
     zipcode: Mapped[str] = mapped_column(String(9))
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
     user: Mapped["User"] = relationship(back_populates="profile")
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = "user_table"
+
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String(32), unique=True)
     password: Mapped[str] = mapped_column(String(64))
