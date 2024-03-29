@@ -7,7 +7,7 @@ from flask_login import login_required
 fq_history = Blueprint('fuel_quote_history', __name__)
 
 
-@fq_history.route('/fuel_quote', methods=['GET', 'POST'])
+@fq_history.route('/history', methods=['GET', 'POST'])
 @login_required
-def fqFunction():
-    return render_template("fuel_quote_history.html")
+def historyFunction():
+    return render_template("fuel_quote_history.html", active="historyNavLink")
