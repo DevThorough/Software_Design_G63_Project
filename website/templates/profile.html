@@ -1,6 +1,14 @@
 {% extends 'index.html' %}
 {% block title %}Client Profile Management{% endblock %}
 {% block content %}
+    <style>
+        .content-body{
+            display: none;
+        }
+        .show-active {
+            display: block;
+        }
+    </style>
     <h1>Client Profile Management</h1>
     {% if onRecord == False %}
     <form action="#" method="post">
@@ -30,16 +38,16 @@
         <input type="submit" value="Submit">
     </form>        
     {% else %}
-        <div>
+        <div id="profileInfo" class="content-body show-active">
             <p>{{fullName}}</p>
             <p>{{address1}}</p>
             <p>{{address2}}</p>
             <p>{{city}}</p>
             <p>{{state}}</p>
             <p>{{zipCode}}</p>
-            <button>Edit</button>
+            <button type="button" class="edit-btn btn-group1">Edit</button>
         </div>
-        <form action="#" method="post">
+        <form action="#" method="post" id="profileEdit" class="content-body">
             <label for="fullname">Full Name:</label><br>
             <input type="text" id="fullname" name="fullname" maxlength="50" required><br><br>
     
@@ -64,7 +72,35 @@
             <input type="text" id="zipcode" name="zipcode" maxlength="9" pattern="[0-9]{5,}" title="Zipcode must be at least 5 digits" required><br><br>
     
             <input type="submit" value="Submit">
+            <button type="button" class="cancel-btn btn-group1">Cancel</button>
         </form>    
     {% endif %}
+    <script>
+        //function to remove .show-active class and add to clicked
+    function setNewActive(el) {
+        // select all .content-body
+        var contentBodies = document.getElementsByClassName('content-body');
+        // remove .show-active
+        for (var contentBody of contentBodies) {
+            contentBody.classList.remove('show-active');
+        }
+        //add .show-active back
+        let identity = "";
+        if (el.textContent == "Cancel")
+            identity = "profileInfo";
+        else
+            identity = "profileEdit";
+        document.getElementById(identity).classList.add('show-active');
+    }
+    //select tab class and loop through
+    var buttons = document.getElementsByClassName('btn-group1');
+    for (var button of buttons) {
+        //add click listener
+        button.addEventListener('click', function (e) {
+            console.log(e.currentTarget.textContent)
+            setNewActive(e.currentTarget);
+        })
+    }
+    </script>
     
 {% endblock %}
