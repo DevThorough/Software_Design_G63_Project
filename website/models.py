@@ -1,13 +1,16 @@
 from . import db
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime
 
 ##from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from typing import Optional
+from typing import List
+import datetime
 
 
 # declarative base class
@@ -36,3 +39,35 @@ class User(db.Model, UserMixin):
     username: Mapped[str] = mapped_column(String(32), unique=True)
     password: Mapped[str] = mapped_column(String(64))
     profile: Mapped["Profile"] = relationship(back_populates="user")
+    quotes: Mapped[List["FuelQuote"]] = relationship()
+
+""" // Example of one to many sqlalchemy relationship
+class Parent(Base):
+    __tablename__ = "parent_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    children: Mapped[List["Child"]] = relationship()
+
+
+class Child(Base):
+    __tablename__ = "child_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    parent_id: Mapped[int] = mapped_column(ForeignKey("parent_table.id"))
+
+"""
+
+class FuelQuote(db.Model):
+    __tablename__ = "quote_table"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    delivery_address: Mapped[str] = mapped_column(String(100))
+    delivery_date: Mapped[str] = mapped_column(String(100))
+    gallons: Mapped[float] = mapped_column(Float(2))
+    price: Mapped[float] = mapped_column(Float(2))
+    total_amount_due: Mapped[float] = mapped_column(Float(2))
+    created_date: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
+
