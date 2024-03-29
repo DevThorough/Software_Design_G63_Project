@@ -14,5 +14,5 @@ def fqFunction():
         gallons = float(request.form.get('gallons_requested'))
         price = float(request.form.get('suggested_price'))
         total_amount_due = gallons * price
-        return render_template("fuel_quote.html", total_amount_due=total_amount_due)
-    return render_template("fuel_quote.html")
+        return render_template("fuel_quote.html", total_amount_due=total_amount_due, active="fuelQuoteNavLink")
+    return render_template("fuel_quote.html", active="fuelQuoteNavLink")

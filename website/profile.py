@@ -47,6 +47,7 @@ def profileFunction():
             return render_template("profile.html", onRecord = True,
                                    fullName = profile.fullName,address1 = profile.address1,
                                    address2 = profile.address2,city = profile.city,
-                                   state = profile.state,zipCode = profile.zipCode)
+                                   state = profile.state,zipCode = profile.zipCode,
+                                   active="profileNavLink")
         else:
-            return render_template("profile.html", onRecord=False)
+            return render_template("profile.html", onRecord=False, active="profileNavLink")

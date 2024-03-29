@@ -25,10 +25,10 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                  <a class="nav-link active" aria-current="page" href="/profile">Profile</a>
-                  <a class="nav-link" href="/fuel_quote">Fuel Quote</a>
-                  <a class="nav-link" href="/fuel_quote_history">History</a>
-                  <a class="nav-link" href="/logout">Logout</a>
+                  <a id="profileNavLink" class="nav-link" href="/profile">Profile</a>
+                  <a id="fuelQuoteNavLink" class="nav-link" href="/fuel_quote">Fuel Quote</a>
+                  <a id="historyNavLink" class="nav-link" href="/history">History</a>
+                  <a id="logoutNavLink" class="nav-link" href="/logout">Logout</a>
                   <!--<a class="nav-link disabled" aria-disabled="true" href="/logout">Logout</a>-->
                 </div>
               </div>
@@ -48,7 +48,13 @@
             Home Page
             {% endblock %}
         </div>
-        <!--<script src="" async defer></script> -->
-        
+        <script>
+            var navLinks = document.getElementsByClassName('nav-link');
+            
+            for (const link of navLinks) {
+                link.classList.remove("active");
+            }
+            document.getElementById("{{active}}").classList.add("active");
+        </script>
     </body>
 </html>
