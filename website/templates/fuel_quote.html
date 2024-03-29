@@ -4,19 +4,19 @@
     <h1>Fuel Quote</h1>
     <form name="fuel_quote_history_form" method="POST">
         <label for="gallons_requested">Gallons Requested:</label><br>
-        <input type="number" id="gallons_requested" name="gallons_requested" required><br><br>
+        <input type="number" step="0.01" id="gallons_requested" name="gallons_requested" value="{{ gallons_requested }}" required><br><br>
 
         <label for="delivery_address">Delivery Address:</label><br>
-        <input type="text" id="delivery_address" name="delivery_address"><br><br>
+        <input type="text" id="delivery_address" name="delivery_address" value="{{ delivery_address }}"><br><br>
 
         <label for="delivery_date">Delivery Date:</label><br>
-        <input type="date" id="delivery_date" name="delivery_date"><br><br>
+        <input type="date" id="delivery_date" name="delivery_date" value="{{ delivery_date }}"><br><br>
 
         <label for="suggested_price">Suggested Price / gallon:</label><br>
-        <input type="number" id="suggested_price" name="suggested_price" ><br><br>
+        <input type="number" step="0.01" id="suggested_price" name="suggested_price" value="{{ suggested_price }}"><br><br>
 
         <label for="total_amount_due">Total Amount Due:</label><br>
-        <input type="number" id="total_amount_due" name="total_amount_due" value="{{ total_amount_due }}" readonly><br><br>
+        <input type="number" step="0.01" id="total_amount_due" name="total_amount_due" value="{{ total_amount_due }}" readonly><br><br>
 
         <input type="submit" value="Submit">
     </form>
