@@ -10,4 +10,9 @@ fuelquote = Blueprint('fuel_quote', __name__)
 @fuelquote.route('/fuel_quote', methods=['GET', 'POST'])
 @login_required
 def fqFunction():
+    if request.method == 'POST':
+        gallons = float(request.form.get('gallons_requested'))
+        price = float(request.form.get('suggested_price'))
+        total_amount_due = gallons * price
+        return render_template("fuel_quote.html", total_amount_due=total_amount_due)
     return render_template("fuel_quote.html")

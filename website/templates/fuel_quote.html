@@ -2,21 +2,21 @@
 {% block title %}Fuel Quote Form{% endblock %}
 {% block content %}
     <h1>Fuel Quote</h1>
-    <form name="fuel_quote_history_form" method="post" action="fuel_quote_history.html">
+    <form name="fuel_quote_history_form" method="POST">
         <label for="gallons_requested">Gallons Requested:</label><br>
         <input type="number" id="gallons_requested" name="gallons_requested" required><br><br>
 
         <label for="delivery_address">Delivery Address:</label><br>
-        <input type="text" id="delivery_address" name="delivery_address" readonly><br><br>
+        <input type="text" id="delivery_address" name="delivery_address"><br><br>
 
         <label for="delivery_date">Delivery Date:</label><br>
         <input type="date" id="delivery_date" name="delivery_date"><br><br>
 
         <label for="suggested_price">Suggested Price / gallon:</label><br>
-        <input type="number" id="suggested_price" name="suggested_price" readonly><br><br>
+        <input type="number" id="suggested_price" name="suggested_price" ><br><br>
 
         <label for="total_amount_due">Total Amount Due:</label><br>
-        <input type="number" id="total_amount_due" name="total_amount_due" readonly><br><br>
+        <input type="number" id="total_amount_due" name="total_amount_due" value="{{ total_amount_due }}" readonly><br><br>
 
         <input type="submit" value="Submit">
     </form>
@@ -39,5 +39,6 @@
 
             return true;
         }
+
     </script>
 {% endblock %}
