@@ -8,4 +8,6 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    return render_template("login.html")
+    if(not session['loggedIn']):
+        session['loggedIn'] = False;
+    return render_template("login.html", loggedIn=session['loggedIn'])

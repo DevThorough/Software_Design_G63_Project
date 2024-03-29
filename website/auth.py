@@ -26,12 +26,12 @@ def login():
                 flash('Incorrect password, try again.', category='error')
         else:
             flash('User does not exist.', category='error')
-    return render_template("login.html")
+    return render_template("login.html", loggedIn=session['loggedIn'])
 
 @auth.route('/logout')
 def logout():
     logout_user()
-    session.pop('loggedIn', None)
+    session['loggedIn'] = False
     session.pop('userID', None)
     return redirect('/login')
 
@@ -57,4 +57,4 @@ def sign_up():
             flash("Account created successfully!", category="success")
             return redirect(url_for('views.home'))
     else:
-        return render_template("registration.html")
+        return render_template("registration.html", loggedIn=session['loggedIn'])

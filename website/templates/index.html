@@ -50,11 +50,21 @@
         </div>
         <script>
             var navLinks = document.getElementsByClassName('nav-link');
-            
             for (const link of navLinks) {
                 link.classList.remove("active");
+                link.classList.remove("disabled");
             }
-            document.getElementById("{{active}}").classList.add("active");
+            let activeID = "{{active}}";
+            if (activeID != "") {
+                document.getElementById(activeID).classList.add("active");                
+            }
+            let loggedIn = "{{loggedIn}}";
+            if (loggedIn == "False") {
+                for (const link of navLinks) {
+                    console.log(loggedIn);
+                    link.classList.add("disabled");
+                }
+            } 
         </script>
     </body>
 </html>
