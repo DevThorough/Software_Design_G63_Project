@@ -119,6 +119,13 @@
             document.getElementById("profileInfo").classList.remove('show-active');
             document.getElementById("profileCancelBtn").classList.add('hide-cancel');
             document.getElementById("profileEdit").classList.add('show-active');
+        }else if (record == "True"){
+            formInputs = document.getElementsByClassName("form-control");
+            //console.log(formInputs);
+            let argArray = ["{{fullName}}","{{address1}}","{{address2}}","{{city}}","{{state}}","{{zipCode}}"];
+            for (let index = 0; index < 6; index++) {
+                formInputs[index].setAttribute('value',argArray[index]);
+            }
         }
 
         //function to remove .show-active class and add to clicked
@@ -142,7 +149,7 @@
         for (var button of buttons) {
             //add click listener
             button.addEventListener('click', function (e) {
-                console.log(e.currentTarget.textContent)
+                //console.log(e.currentTarget.textContent)
                 setNewActive(e.currentTarget);
             })
         }
