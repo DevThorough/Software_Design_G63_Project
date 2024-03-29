@@ -25,32 +25,29 @@
         <p>{{zipCode}}</p>
         <button type="button" class="edit-btn btn-group1">Edit</button>
     </div>
-    <form action="#" method="post" id="profileEdit" class="content-body standard-form">
-        <div class="form-group">
-            <label class="control-label " for="fullname">Full Name:</label>
-            <div class="">
-            <input class="form-control" type="text" id="fullname" name="fullname" maxlength="50" required>
-            </div>
+    <form action="#" method="post" id="profileEdit" class="content-body">
+        <div class="form-floating">
+            <input class="form-control" type="text" id="fullname" name="fullname" maxlength="50" value="" placeholder="John Doe" required>
+            <label for="fullname">Full Name</label>
         </div>
         
-        <div class="form-group">
-            <label class="control-label" for="address1">Address 1:</label>
-            <input class="form-control" type="text" id="address1" name="address1" maxlength="100" required>
+        <div class="form-floating">
+            <input class="form-control" type="text" id="address1" name="address1" maxlength="100" value="" placeholder="123 Main St" required>
+            <label class="control-label" for="address1">Address 1</label>
         </div>
         
-        <div class="form-group">
-            <label class="control-label" for="address2">Address 2:</label>
-            <input class="form-control" type="text" id="address2" name="address2" maxlength="100">
+        <div class="form-floating">
+            <input class="form-control" type="text" id="address2" name="address2" maxlength="100" value="" placeholder="Unit #123">
+            <label for="address2">Address 2</label>
         </div>
         
-        <div class="form-group">
-            <label class="control-label" for="city">City:</label>
-            <input class="form-control" type="text" id="city" name="city" maxlength="100" required>
+        <div class="form-floating">
+            <input class="form-control" type="text" id="city" name="city" maxlength="100" value="" placeholder="Houston" required>
+            <label for="city">City</label>
         </div>
         
-        <div class="form-group">
-            <label class="control-label" for="state">State:</label>
-            <select class="form-control" id="state" name="state" required>
+        <div class="form-floating">
+            <select class="form-control" id="state" name="state" value="" placeholder="Texas" required>
                 <option value="" disabled selected>Select State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -103,11 +100,12 @@
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>                
             </select>
+            <label for="state">State</label>
         </div>
         
-        <div class="form-group">
-            <label class="control-label" for="zipcode">Zipcode:</label>
-            <input class="form-control" type="text" id="zipcode" name="zipcode" maxlength="9" pattern="[0-9]{5,}" title="Zipcode must be at least 5 digits" required>
+        <div class="form-floating">
+            <input class="form-control" type="text" id="zipcode" name="zipcode" maxlength="9" pattern="[0-9]{5,}" title="Zipcode must be at least 5 digits"  value="" placeholder="55555-5555"required>
+            <label for="zipcode">Zipcode</label>
         </div>
         
         <input type="submit" value="Submit">
