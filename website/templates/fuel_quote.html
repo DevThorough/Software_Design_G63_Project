@@ -1,25 +1,34 @@
 {% extends 'index.html' %}
 {% block title %}Fuel Quote Form{% endblock %}
 {% block content %}
-    <h1>Fuel Quote</h1>
-    <form name="fuel_quote_history_form" method="POST">
-        <label for="gallons_requested">Gallons Requested:</label><br>
-        <input type="number" step="0.01" id="gallons_requested" name="gallons_requested" value="{{ gallons_requested }}" required><br><br>
-
-        <label for="delivery_address">Delivery Address:</label><br>
-        <input type="text" id="delivery_address" name="delivery_address" value="{{ delivery_address }}"><br><br>
-
-        <label for="delivery_date">Delivery Date:</label><br>
-        <input type="date" id="delivery_date" name="delivery_date" value="{{ delivery_date }}"><br><br>
-
-        <label for="suggested_price">Suggested Price / gallon:</label><br>
-        <input type="number" step="0.01" id="suggested_price" name="suggested_price" value="{{ suggested_price }}"><br><br>
-
-        <label for="total_amount_due">Total Amount Due:</label><br>
-        <input type="number" step="0.01" id="total_amount_due" name="total_amount_due" value="{{ total_amount_due }}" readonly><br><br>
-
-        <input type="submit" value="Submit">
-    </form>
+    <section>
+        <h1>Fuel Quote</h1>
+        <form name="fuel_quote_history_form" method="POST">
+            <div class="form-floating">
+                <input class="form-control" type="number" step="0.01" id="gallons_requested" name="gallons_requested" value="{{ gallons_requested }}" placeholder="5.00" required>
+                <label for="gallons_requested">Gallons Requested:</label>    
+            </div>
+            <div class="form-floating">
+                <input class="form-control" type="text" id="delivery_address" name="delivery_address" value="{{ delivery_address }}" placeholder="123 Main St Unit#405, Houston, TX, 77002">
+                <label for="delivery_address">Delivery Address:</label>    
+            </div>
+            <div class="form-floating">
+                <input class="form-control" type="date" id="delivery_date" name="delivery_date" value="{{ delivery_date }}" placeholder="4/14/2024">
+                <label for="delivery_date">Delivery Date:</label>    
+            </div>
+            <div class="form-floating">
+                <input class="form-control" type="number" step="0.01" id="suggested_price" name="suggested_price" value="{{ suggested_price }}" placeholder="2.00">
+                <label for="suggested_price">Suggested Price / gallon:</label>    
+            </div>
+            <div class="form-floating">
+                <input class="form-control-plaintext" type="number" step="0.01" id="total_amount_due" name="total_amount_due" value="{{ total_amount_due }}" placeholder="10.00" readonly>
+                <label for="total_amount_due">Total Amount Due:</label>     
+            </div>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+    
     <script>
         function validateForm() {
             var gallonsRequested = document.getElementById("gallons_requested").value;
@@ -38,6 +47,13 @@
             }
 
             return true;
+        }
+        let record = "{{onRecord}}";
+        if (record == "True"){
+            //document.getElementById("").classList.add('hide-my-btn');
+            let fullAddress = ("{{address2}}" == "") ? "{{address1}}, \n{{city}}, {{state}} \n{{zipCode}}" 
+                                        :"{{address1}} {{address2}}, \n{{city}}, {{state}} \n{{zipCode}}";
+            document.getElementById("delivery_address").setAttribute('value',fullAddress);
         }
 
     </script>

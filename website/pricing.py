@@ -1,3 +1,9 @@
+from flask import Blueprint
+from .models import User, Profile
+from . import db   ##means from __init__.py import db
+
+pricing = Blueprint('pricing', __name__)
+
 def fuelPrice(gallons, hasHistory, state):
     if gallons < 0:
         raise ValueError("Gallons can not be negative.")
