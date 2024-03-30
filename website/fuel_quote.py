@@ -14,7 +14,7 @@ def fqFunction():
     userID = session['userID']
     profile = Profile.query.filter_by(user_id=userID).first()
     if not profile:
-        flash('Don't forget to create a profile!', category='error')##Disable submit button if no profile
+        flash("Don't forget to create a profile!", category='error')##Disable submit button if no profile
 
     if request.method == 'POST':
         delivery_address = request.form.get('delivery_address')
