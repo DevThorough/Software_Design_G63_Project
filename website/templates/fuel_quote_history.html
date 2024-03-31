@@ -6,21 +6,23 @@
     <table>
         <thead>
             <tr>
-                <th>Gallons Requested</th>
                 <th>Delivery Address</th>
                 <th>Delivery Date</th>
+                <th>Gallons Requested</th>
                 <th>Suggested Price / gallon</th>
                 <th>Total Amount Due</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>200</td>
-                <td>4400 Cougar Village, Houston, Tx, 77229</td>
-                <td>2024-02-20</td>
-                <td>$2.79</td>
-                <td>$300.00</td>
-            </tr>
+            {% for quote in quote_history %}
+                <tr>
+                    <td>{{quote.delivery_address}}</td>
+                    <td>{{quote.delivery_date}}</td>
+                    <td>{{quote.gallons}}</td>
+                    <td>${{quote.price}}</td>
+                    <td>${{quote.total_amount_due}}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}

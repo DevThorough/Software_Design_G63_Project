@@ -9,15 +9,15 @@
                 <label for="gallons_requested">Gallons Requested:</label>    
             </div>
             <div class="form-floating">
-                <input class="form-control" type="text" id="delivery_address" name="delivery_address" value="{{ delivery_address }}" placeholder="123 Main St Unit#405, Houston, TX, 77002">
-                <label for="delivery_address">Delivery Address:</label>    
-            </div>
-            <div class="form-floating">
-                <input class="form-control" type="date" id="delivery_date" name="delivery_date" value="{{ delivery_date }}" placeholder="4/14/2024">
+                <input class="form-control" type="date" id="delivery_date" name="delivery_date" value="{{ delivery_date }}" placeholder="2024-04-14">
                 <label for="delivery_date">Delivery Date:</label>    
             </div>
             <div class="form-floating">
-                <input class="form-control" type="number" step="0.01" id="suggested_price" name="suggested_price" value="{{ suggested_price }}" placeholder="2.00">
+                <input class="form-control-plaintext" type="text" id="delivery_address" name="delivery_address" value="{{ delivery_address }}" placeholder="123 Main St Unit#405, Houston, TX, 77002">
+                <label for="delivery_address">Delivery Address:</label>    
+            </div>
+            <div class="form-floating">
+                <input class="form-control-plaintext" type="number" step="0.01" id="suggested_price" name="suggested_price" value="{{ suggested_price }}" placeholder="2.00" readonly>
                 <label for="suggested_price">Suggested Price / gallon:</label>    
             </div>
             <div class="form-floating">
@@ -25,7 +25,7 @@
                 <label for="total_amount_due">Total Amount Due:</label>     
             </div>
             
-            <input type="submit" value="Submit">
+            <input id="submit-btn" type="submit" value="Submit">
         </form>
     </section>
     
@@ -54,6 +54,12 @@
             let fullAddress = ("{{address2}}" == "") ? "{{address1}}, \n{{city}}, {{state}} \n{{zipCode}}" 
                                         :"{{address1}} {{address2}}, \n{{city}}, {{state}} \n{{zipCode}}";
             document.getElementById("delivery_address").setAttribute('value',fullAddress);
+            document.getElementById("submit-btn").removeAttribute("disabled", "");
+            document.getElementById("submit-btn").setAttribute("enabled", "");
+
+        }else{
+            document.getElementById("submit-btn").removeAttribute("enabled", "");
+            document.getElementById("submit-btn").setAttribute("disabled", "");
         }
 
     </script>

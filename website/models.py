@@ -61,7 +61,7 @@ class FuelQuote(db.Model):
     __tablename__ = "quote_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    delivery_address: Mapped[str] = mapped_column(String(100))
+    delivery_address: Mapped[str] = mapped_column(String(200))
     delivery_date: Mapped[str] = mapped_column(String(100))
     gallons: Mapped[float] = mapped_column(Float(2))
     price: Mapped[float] = mapped_column(Float(2))

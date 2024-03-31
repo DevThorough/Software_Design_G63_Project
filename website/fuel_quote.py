@@ -14,17 +14,18 @@ def fqFunction():
     userID = session['userID']
     profile = Profile.query.filter_by(user_id=userID).first()
     if not profile:
-        flash("Don't forget to create a profile!", category='error')##Disable submit button if no profile
+        flash("Complete profile before getting quote.", category='error')##Disable submit button if no profile
 
     if request.method == 'POST':
         delivery_address = request.form.get('delivery_address')
         delivery_date = request.form.get('delivery_date')
         gallons = float(request.form.get('gallons_requested'))
-        price = float(request.form.get('suggested_price'))
+        price = fuelPrice(gallons, delivery_date, userID)
         total_amount_due = round(gallons * price,2)
         ## add quote to quote history
         new_quote = FuelQuote(delivery_address=delivery_address, delivery_date=delivery_date,
-                                gallons=gallons, price=price, total_amount_due=total_amount_due)
+                                gallons=gallons, price=price, total_amount_due=total_amount_due,
+                                user_id=userID)
         db.session.add(new_quote)
         db.session.commit()
         flash("Fuel Quote added to History.", category="success")
