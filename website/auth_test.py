@@ -27,5 +27,7 @@ class authTestCase(unittest.TestCase):
         self.assertIn(b'Password must contain at least 3 characters.', response.data)
 
 
+
+
 if __name__ == '__main__':
     unittest.main()
