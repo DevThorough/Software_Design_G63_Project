@@ -16,7 +16,7 @@ def fuelPrice(gallons, delivery_date, userID):
         ## Apply discount
         price -= 0.5
     profile = Profile.query.filter_by(user_id=userID).first()
-    if profile.state == "TX":
+    if type(profile) != type(None):# or profile.state == "TX":
         price += 0.20
     else:
         price += 0.40 ## Out of state shipping
