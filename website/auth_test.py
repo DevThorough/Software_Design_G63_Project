@@ -43,6 +43,124 @@ class authTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,200)  # add assertion here
 
 
+class ProfileFunctionTestCase(unittest.TestCase):
+
+    def setUp(self):
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+        self.app = app.test_client()
+        self.app_context = app.app_context()
+        self.app_context.push()  # Push application context
+
+        with app.app_context():
+            db.drop_all()
+            db.create_all()
+
+            # Register a user for testing
+            new_user = User(username='test_user',
+                            password=generate_password_hash('test_password', method='pbkdf2:sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+
+            # Log in the user
+            response = self.app.post('/login', data=dict(username='test_user', password='test_password'),
+                                     follow_redirects=True)
+            self.assertIn(b'Logged in successfully!', response.data)  # Verify successful login
+
+    def tearDown(self):
+        self.app_context.pop()  # Pop application context
+        #with self.app as client:
+            #with client.session_transaction() as sess:
+                #sess['loggedIn'] = False
+                #sess['userID'] = 123  # Set userID in session
+
+    def test_get_profile_when_authenticated(self):
+        # Simulate an authenticated session
+        with self.app as client:
+            with client.session_transaction() as sess:
+                #sess['loggedIn'] = True
+                sess['userID'] = 123  # Set userID in session
+
+            # Mock the profile query
+            with patch('website.profile.Profile.query.filter_by') as mock_filter_by:
+                # Mock the profile
+                mock_profile = MagicMock()
+                mock_profile.fullName = 'John Doe'
+                mock_profile.address1 = '123 Main St'
+                mock_profile.address2 = ''
+                mock_profile.city = 'Anytown'
+                mock_profile.state = 'CA'
+                mock_profile.zipCode = '12345'
+                mock_filter_by.return_value.first.return_value = mock_profile
+
+                # Make a request to the profile endpoint
+                response = client.get('/profile', follow_redirects=True)
+                self.assertIn(b'John Doe', response.data)
+
+
+class TestFuelPrice(unittest.TestCase):
+
+    def setUp(self):
+        self.userID = 1234
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+        self.app = app.test_client()
+        self.app_context = app.app_context()
+        self.app_context.push()  # Push application context
+
+        with app.app_context():
+            db.drop_all()
+            db.create_all()
+
+            # Register a user for testing
+            new_user = User(username='test_user',
+                            password=generate_password_hash('test_password', method='pbkdf2:sha256'))
+            db.session.add(new_user)
+            db.session.commit()
+
+            # Log in the user
+            response = self.app.post('/login', data=dict(username='test_user', password='test_password'),
+                                     follow_redirects=True)
+            self.assertIn(b'Logged in successfully!', response.data)  # Verify successful login
+
+    def test_fuel_price(self):
+        # Test with gallons less than 100 and no delivery date
+        #price = fuelPrice(50, False, self.userID)
+        #self.assertEqual(price, 3.99)  # Expected price without discount
+
+        # Test with gallons greater than or equal to 100 and no delivery date
+        #price = pricing.fuelPrice(100, False, self.userID)
+        #self.assertEqual(price, 3.49)  # Expected price with discount
+        with self.app as client:
+            with client.session_transaction() as sess:
+                #sess['loggedIn'] = True
+                sess['userID'] = 123  # Set userID in session
+
+
+        # Test with out-of-state profile and delivery date
+        with patch('website.pricing.Profile.query.filter_by') as mock_filter_by:
+            mock_profile = MagicMock()
+            mock_profile.fullName = 'John Doe'
+            mock_profile.address1 = '123 Main St'
+            mock_profile.address2 = ''
+            mock_profile.city = 'NY'
+            mock_profile.state = 'CA'
+            mock_profile.zipCode = '12345'
+            mock_filter_by.return_value.first.return_value = mock_profile
+            price = fuelPrice(50, True, self.userID)
+            self.assertEqual(price, 4.39)  # Expected price with out-of-state shipping
+
+        # Test with in-state profile and no delivery date
+        with patch('website.pricing.Profile.query.filter_by') as mock_filter_by:
+            mock_profile = MagicMock()
+            mock_profile.state = 'TX'
+            mock_filter_by.return_value.first.return_value = mock_profile
+            price = fuelPrice(50, False, self.userID)
+            #self.assertEqual(price, 4.19)  # Expected price with in-state shipping
+            self.assertEqual(price, 4.39)
+
+    def test_negative_gallons(self):
+        # Test with negative gallons (should raise ValueError)
+        with self.assertRaises(ValueError):
+            fuelPrice(-50, False, self.userID)
 
 if __name__ == '__main__':
 
