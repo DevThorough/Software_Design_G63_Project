@@ -71,3 +71,6 @@ class FuelQuote(db.Model):
     )
     user_id: Mapped[int] = mapped_column(ForeignKey("user_table.id"))
 
+class State_Price(db.Model):
+    state: Mapped[str] = mapped_column(primary_key=True)
+    price: Mapped[float] = mapped_column(Float(2))
