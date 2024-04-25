@@ -7,7 +7,7 @@ class TestBlog:
         Base.metadata.create_all(engine)
         self.session = Session()
         self.valid_user = User(
-            id=1234
+            id=1234,
             username="abc",
             password="123"
         )
