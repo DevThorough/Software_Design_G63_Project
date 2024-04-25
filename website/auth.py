@@ -44,6 +44,7 @@ def sign_up():
         user = User.query.filter_by(username=username).first()
         if user:
             flash("Username already exist.", category='error')
+            return redirect('register')
         elif len(username) < 2:
             flash("Username must contain at least 2 characters.", category='error')
         elif len(password) < 3:
