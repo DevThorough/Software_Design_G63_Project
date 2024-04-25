@@ -9,16 +9,18 @@ def fuelPrice(gallons, delivery_date, userID):
     if gallons < 0:
         raise ValueError("Gallons can not be negative.")
 
-    price = 3.99
-    if gallons >= 100:
-        price -= 0.50
+    margin = 0.10 ## Company Profit Factor
+    price = 1.50
+    if gallons >= 1000:
+        margin += 0.02
     hasHistory = FuelQuote.query.filter_by(user_id=userID).first()
     if hasHistory == True and delivery_date == True:
-        ## Apply discount
-        price -= 0.5
+        ## 0% if no history, otherwise add 1%
+        margin += 0.01
     profile = Profile.query.filter_by(user_id=userID).first()
     if profile.state == "TX":
-        price += 0.20
+        margin += 0.02  ## In state shipping
     else:
-        price += 0.40  ## Out of state shipping
+        margin += 0.04  ## Out of state shipping
+    price += margin * 1.50
     return round(price, 2)

@@ -1,17 +1,16 @@
 from . import db
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, create_engine, Text
 
 ##from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import DeclarativeBase, declarative_base, relationship, sessionmaker
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 from typing import Optional
 from typing import List
 import datetime
-
+from sqlalchemy.engine import URL
+import pytest
 
 # declarative base class
 class Base(DeclarativeBase):
@@ -74,3 +73,14 @@ class FuelQuote(db.Model):
 class State_Price(db.Model):
     state: Mapped[str] = mapped_column(primary_key=True)
     price: Mapped[float] = mapped_column(Float(2))
+
+##Example
+url = URL.create(
+    drivername="postgresql",
+    username="coderpad",
+    host="/tmp/postgresql/socket",
+    database="coderpad"
+    )
+
+engine = create_engine(url)
+Session = sessionmaker(bind=engine)
