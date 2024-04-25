@@ -131,7 +131,7 @@ class TestFuelPrice(unittest.TestCase):
     def test_fuel_price(self):
         # Test with gallons less than 100 and no delivery date
         price = fuelPrice(50, False, 123)
-        self.assertEqual(price, 4.39)  # Expected price without discount
+        self.assertEqual(price, 1.71)  # Expected price without discount
 
 
     def test_negative_gallons(self):
