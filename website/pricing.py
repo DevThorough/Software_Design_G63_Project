@@ -13,10 +13,12 @@ def fuelPrice(gallons, delivery_date, userID):
     price = 1.50
     if gallons >= 1000:
         margin += 0.02
+    else:
+        margin += 0.03
     hasHistory = FuelQuote.query.filter_by(user_id=userID).first()
     if hasHistory == True and delivery_date == True:
-        ## 0% if no history, otherwise add 1%
-        margin += 0.01
+        ## 0% if no history, otherwise discount 1%
+        margin -= 0.01
     profile = Profile.query.filter_by(user_id=userID).first()
     if profile.state == "TX":
         margin += 0.02  ## In state shipping
