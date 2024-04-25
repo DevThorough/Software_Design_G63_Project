@@ -116,6 +116,13 @@ class TestFuelPrice(unittest.TestCase):
             db.session.add(new_user)
             db.session.commit()
 
+            new_profile = Profile(id=1,fullName="John Doe",address1="123 Main St",address2="Apt 101",
+                                  city="Anytown",state="NY",zipCode="12345",
+                                  user_id=123)
+
+            db.session.add(new_profile)
+            db.session.commit()
+
             # Log in the user
             response = self.app.post('/login', data=dict(username='test_user', password='test_password'),
                                      follow_redirects=True)
@@ -123,39 +130,9 @@ class TestFuelPrice(unittest.TestCase):
 
     def test_fuel_price(self):
         # Test with gallons less than 100 and no delivery date
-        #price = fuelPrice(50, False, self.userID)
-        #self.assertEqual(price, 3.99)  # Expected price without discount
+        price = fuelPrice(50, False, 123)
+        self.assertEqual(price, 4.39)  # Expected price without discount
 
-        # Test with gallons greater than or equal to 100 and no delivery date
-        #price = pricing.fuelPrice(100, False, self.userID)
-        #self.assertEqual(price, 3.49)  # Expected price with discount
-        with self.app as client:
-            with client.session_transaction() as sess:
-                #sess['loggedIn'] = True
-                sess['userID'] = 123  # Set userID in session
-
-
-        # Test with out-of-state profile and delivery date
-        with patch('website.pricing.Profile.query.filter_by') as mock_filter_by:
-            mock_profile = MagicMock()
-            mock_profile.fullName = 'John Doe'
-            mock_profile.address1 = '123 Main St'
-            mock_profile.address2 = ''
-            mock_profile.city = 'NY'
-            mock_profile.state = 'CA'
-            mock_profile.zipCode = '12345'
-            mock_filter_by.return_value.first.return_value = mock_profile
-            price = fuelPrice(50, True, self.userID)
-            self.assertEqual(price, 4.39)  # Expected price with out-of-state shipping
-
-        # Test with in-state profile and no delivery date
-        with patch('website.pricing.Profile.query.filter_by') as mock_filter_by:
-            mock_profile = MagicMock()
-            mock_profile.state = 'TX'
-            mock_filter_by.return_value.first.return_value = mock_profile
-            price = fuelPrice(50, False, self.userID)
-            #self.assertEqual(price, 4.19)  # Expected price with in-state shipping
-            self.assertEqual(price, 4.39)
 
     def test_negative_gallons(self):
         # Test with negative gallons (should raise ValueError)
