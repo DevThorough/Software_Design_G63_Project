@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <main>
+        <section class="py-5 text-center">
+        <div class="container">
+            <h1 class="display-4">FuelPricing</h1>
+            <p class="lead">Giving you Fuel Quotes you can trust!</p>
+        </div>
+        </section>
+        <section class="py-5 bg-light">
+            <div class="container text-center">
+              <h2 class="display-5">Accurate Pricing Predictions</h2>
+              <p class="lead">Our advanced algorithms analyze various data points to provide you 
+                with the most accurate fuel pricing predictions, helping you make informed decisions.</p>
+                <div id="authButtons">
+                    <a href="/register" class="btn btn-primary btn-lg">Get Started</a>
+                    <p>Already have an account? <a href="/login">Login</a></p>    
+                </div>
+            </div>
+          </section>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+        <span class="text-muted">&copy; 2024 FuelPricing. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        let loggedIn = "{{loggedIn}}";
+        //console.log(loggedIn);
+        if (loggedIn == "True") {
+            document.getElementById("authButtons").style.display = "none";
+        }else{
+            document.getElementById("authButtons").style.display = "block";
+        } 
+    </script>
+{% endblock %}

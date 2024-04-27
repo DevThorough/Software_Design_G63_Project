@@ -9,4 +9,10 @@ views = Blueprint('views', __name__)
 def home():
     if 'loggedIn' not in session:
         session['loggedIn'] = False
-    return render_template("login.html", loggedIn=session['loggedIn'])
+    return render_template("homepage.html", loggedIn=session['loggedIn'])
+
+@views.route('/home')
+def homepage():
+    if 'loggedIn' not in session:
+        session['loggedIn'] = False
+    return render_template("homepage.html", loggedIn=session['loggedIn'])
