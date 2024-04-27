@@ -21,7 +21,7 @@ def login():
                 login_user(user, remember=True)
                 session['userID'] = user.id
                 session['loggedIn'] = True
-                return redirect('/profile')
+                return redirect('/home')
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -33,7 +33,7 @@ def logout():
     logout_user()
     session['loggedIn'] = False
     session.pop('userID', None)
-    return redirect('/login')
+    return redirect('/home')
 
 @auth.route('/register', methods=['GET', 'POST'])
 def sign_up():
@@ -55,7 +55,7 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash("Account created successfully!", category="success")
-            return redirect(url_for('views.home'))
+            flash("Account created successfully! You may login.", category="success")
+            return redirect("/login")
     else:
         return render_template("registration.html", loggedIn=session['loggedIn'])
