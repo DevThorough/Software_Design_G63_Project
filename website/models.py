@@ -10,7 +10,7 @@ from typing import Optional
 from typing import List
 import datetime
 from sqlalchemy.engine import URL
-import pytest
+##import pytest
 
 # declarative base class
 class Base(DeclarativeBase):
@@ -75,12 +75,12 @@ class State_Price(db.Model):
     price: Mapped[float] = mapped_column(Float(2))
 
 ##Example
-url = URL.create(
-    drivername="postgresql",
-    username="coderpad",
-    host="/tmp/postgresql/socket",
-    database="coderpad"
-    )
+# url = URL.create(
+#     drivername="postgresql",
+#     username="coderpad",
+#     host="/tmp/postgresql/socket",
+#     database="coderpad"
+#     )
 
-engine = create_engine(url)
-Session = sessionmaker(bind=engine)
+# engine = create_engine(url)
+# Session = sessionmaker(bind=engine)
