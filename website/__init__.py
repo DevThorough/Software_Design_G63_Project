@@ -13,12 +13,12 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
 
-    from .views import views
-    from .auth import auth
-    from .profile import profile
-    from .fuel_quote import fuelquote
-    from .fuel_quote_history import fq_history
-    from .pricing import pricing
+    from views import views
+    from auth import auth
+    from profile import profile
+    from fuel_quote import fuelquote
+    from fuel_quote_history import fq_history
+    from pricing import pricing
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -27,7 +27,7 @@ def create_app():
     app.register_blueprint(fq_history, url_prefix='/')
     app.register_blueprint(pricing, url_prefix='/')
 
-    from .models import User
+    from models import User
 
     with app.app_context():
         db.drop_all()

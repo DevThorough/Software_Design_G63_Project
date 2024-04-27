@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, flash, redirect, session
-from .models import User, Profile, FuelQuote
-from . import db   ##means from __init__.py import db
+from models import User, Profile, FuelQuote
+from __init__ import db   ##means from __init__.py import db
 from flask_login import login_required
-from .pricing import fuelPrice
+from pricing import fuelPrice
 
 
 fuelquote = Blueprint('fuel_quote', __name__)

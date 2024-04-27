@@ -1,6 +1,6 @@
 from flask import Blueprint
-from .models import Profile, FuelQuote
-from . import db  ##means from __init__.py import db
+from models import Profile, FuelQuote
+from __init__ import db  ##means from __init__.py import db
 
 pricing = Blueprint('pricing', __name__)
 

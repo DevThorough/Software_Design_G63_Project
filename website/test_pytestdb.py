@@ -1,8 +1,8 @@
-from models import Base, User, Profile, FuelQuote
+from .models import Base, User, Profile, FuelQuote
 from sqlalchemy import engine
 from flask import Session
 
-class TestBlog:
+class TestDatabase:
     def setup_class(self):
         Base.metadata.create_all(engine)
         self.session = Session()
@@ -27,9 +27,10 @@ class TestBlog:
         self.session.close()
 
     def test_author_valid(self):   
-        self.session.add(self.valid_author)
+        self.session.add(self.valid_user, self.valid_profile)
+        self.session['userID'] = self.valid_user.id
+        self.session['loggedIn'] = True
         self.session.commit()
-        aybak = self.session.query(Author).filter_by(lastname="Aybak").first()
-        assert aybak.firstname == "Ezzeddin"
-        assert aybak.lastname != "Abdullah"
-        assert aybak.email == "aybak_email@gmail.com"
+        userProfile = Profile.query.filter_by(user_id=self.session['userID']).first()
+        assert userProfile.id == 321
+        assert userProfile.fullName == "Lebron James"

@@ -1,14 +1,17 @@
-from main import app #importing flask app object
+from __init__ import create_app, db
 import unittest
-from .models import User
+from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.datastructures import ImmutableMultiDict
 from unittest.mock import patch, MagicMock
-from website.pricing import pricing, fuelPrice
+from pricing import fuelPrice
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from website.profile import profileFunction
-from .models import Profile
-from website import db
+from profile import profileFunction
+from models import Profile
+
+
+app = create_app()
+
 
 class authTestCase(unittest.TestCase):
 
