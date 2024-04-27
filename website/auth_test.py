@@ -1,13 +1,13 @@
-from __init__ import create_app, db
+from website.__init__ import create_app, db
 import unittest
-from models import User
+from website.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.datastructures import ImmutableMultiDict
 from unittest.mock import patch, MagicMock
-from pricing import fuelPrice
+from website.pricing import fuelPrice
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from profile import profileFunction
-from models import Profile
+from website.profile import profileFunction
+from website.models import Profile
 
 
 app = create_app()
@@ -82,7 +82,7 @@ class ProfileFunctionTestCase(unittest.TestCase):
                 sess['userID'] = 123  # Set userID in session
 
             # Mock the profile query
-            with patch('profile.Profile.query.filter_by') as mock_filter_by:
+            with patch('website.profile.Profile.query.filter_by') as mock_filter_by:
                 # Mock the profile
                 mock_profile = MagicMock()
                 mock_profile.fullName = 'John Doe'

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
-from models import User
+from website.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from __init__ import db   ##means from __init__.py import db
+from website.__init__ import db   ##means from __init__.py import db
 from flask_login import login_user, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
@@ -33,6 +33,7 @@ def logout():
     logout_user()
     session['loggedIn'] = False
     session.pop('userID', None)
+    flash('Logged out successfully!', category='success')
     return redirect('/home')
 
 @auth.route('/register', methods=['GET', 'POST'])

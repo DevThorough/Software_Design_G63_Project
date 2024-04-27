@@ -1,4 +1,4 @@
-from __init__ import db
+from website.__init__ import db
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, create_engine, Text
 
