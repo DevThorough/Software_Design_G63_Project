@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, make_response
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db   ##means from __init__.py import db
@@ -56,6 +56,7 @@ def sign_up():
             db.session.commit()
             login_user(new_user, remember=True)
             flash("Account created successfully! You may login.", category="success")
-            return redirect("/login")
+            response = make_response(render_template('login.html'), 200)
+            return response
     else:
         return render_template("registration.html", loggedIn=session['loggedIn'])

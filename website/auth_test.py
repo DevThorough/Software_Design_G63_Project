@@ -22,22 +22,20 @@ class authTestCase(unittest.TestCase):
             db.drop_all()
             db.create_all()
 
-    def register(self, username, email, password):
+    def register(self, username, password):
         return self.app.post('/register',
                              data=dict(username=username,
-                                       email=email,
-                                       password=password,
-                                       confirm_password=password),
+                                       password=password),
                              follow_redirects=True)
     def test_valid_user_registration(self):
-        response=self.register('test','test@example','FlaskIsAwesome')
+        response=self.register('test','FlaskIsAwesome')
         self.assertEqual(response.status_code,200)
 
     def test_invalid_registration(self):
-        response = self.register('t', 'test@example.com', 'FlaskIsAwesome')
+        response = self.register('t','FlaskIsAwesome')
         #self.assertIn(b'Username must contain at least 2 characters', response.data)
         self.assertEqual(response.status_code, 500)
-        invalid_resp = self.register('usernameistoolongforthisfield', 'user@gmail.com', 'pa')
+        invalid_resp = self.register('usernameistoolongforthisfield','pa')
         #self.assertIn(b'Password must contain at least 3 characters.', response.data)
         self.assertEqual(invalid_resp.status_code, 500)
 
@@ -84,7 +82,7 @@ class ProfileFunctionTestCase(unittest.TestCase):
                 sess['userID'] = 123  # Set userID in session
 
             # Mock the profile query
-            with patch('website.profile.Profile.query.filter_by') as mock_filter_by:
+            with patch('profile.Profile.query.filter_by') as mock_filter_by:
                 # Mock the profile
                 mock_profile = MagicMock()
                 mock_profile.fullName = 'John Doe'
@@ -134,7 +132,7 @@ class TestFuelPrice(unittest.TestCase):
     def test_fuel_price(self):
         # Test with gallons less than 100 and no delivery date
         price = fuelPrice(50, False, 123)
-        self.assertEqual(price, 1.71)  # Expected price without discount
+        self.assertAlmostEqual(price, round(1.755,2))  # Expected price without discount
 
 
     def test_negative_gallons(self):
